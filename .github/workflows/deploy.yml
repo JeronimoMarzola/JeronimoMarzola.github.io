@@ -33,6 +33,10 @@ jobs:
         
       - name: Build
         run: npm run build
+      - name: Ensure uppercase Multimedia assets
+        run: |
+          mkdir -p dist/Multimedia
+          cp -r dist/multimedia/* dist/Multimedia/
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
