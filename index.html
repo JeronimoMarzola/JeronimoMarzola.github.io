@@ -369,7 +369,7 @@
           const raw = 'https://www.dropbox.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&st=sewavysk&dl=0'
           const clean = (u) => String(u || '').trim().replace(/^`+|`+$/g, '')
           const href = clean(raw)
-          modalContent.innerHTML = `<div class="p-6 space-y-4"><p class="text-slate-700">Para leer el guion, abre el enlace en una nueva pestaña.</p><a href="${href}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700">Leer en Dropbox</a></div>`
+          modalContent.innerHTML = `<div class="p-6 space-y-4"><p class="text-slate-700">Para leer el guion, abre el enlace en una nueva pestaña.</p><a href="${href}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700">Leer</a></div>`
         }
         })
       })
