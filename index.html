@@ -295,19 +295,22 @@
 
       const candidatesFor = (file) => {
         const o = window.location.origin
+        const raw = 'https://raw.githubusercontent.com/JeronimoMarzola/JeronimoMarzola.github.io/main'
         return [
           `/Multimedia/${file}`,
           `/multimedia/${file}`,
           `${o}/Multimedia/${file}`,
           `${o}/multimedia/${file}`,
           `./Multimedia/${file}`,
-          `./multimedia/${file}`
+          `./multimedia/${file}`,
+          `${raw}/Multimedia/${file}`,
+          `${raw}/public/multimedia/${file}`
         ]
       }
       const resolveUrl = async (candidates) => {
         for (const p of candidates) {
           try {
-            const r = await fetch(p, { method: 'HEAD' })
+            const r = await fetch(p, { method: 'GET' })
             if (r.ok) return p
           } catch (e) {}
         }
