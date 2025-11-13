@@ -37,6 +37,10 @@ jobs:
         run: |
           mkdir -p dist/Multimedia
           cp -r dist/multimedia/* dist/Multimedia/
+      - name: Copy repository Multimedia to dist
+        run: |
+          mkdir -p dist/Multimedia
+          cp -r Multimedia/* dist/Multimedia/
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
