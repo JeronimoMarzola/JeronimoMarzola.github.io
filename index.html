@@ -155,7 +155,7 @@
                 <p class="mt-2 text-slate-600">Visualiza el póster como recurso visual del curso.</p>
                 <div class="mt-4 flex items-center space-x-3">
                   <button data-modal="image" class="btn-cta px-4 py-2 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-all duration-200 hover:scale-[1.03] focus:ring-2 focus:ring-primary-300">Ver</button>
-                  <a href="./Multimedia/poster_cientifico.png" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
+                  <a href="/Multimedia/poster_cientifico.png" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
                 </div>
               </div>
             </div>
@@ -302,7 +302,7 @@
             modalContent.innerHTML = '<div class="p-6"><audio controls class="w-full"><source src="/Multimedia/podcast_producido.mp3" type="audio/mpeg"></audio></div>'
           } else if (type === 'image') {
             modalTitle.textContent = 'Póster Científico'
-            modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="./Multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
+            modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="/Multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
           } else if (type === 'pdf') {
             modalTitle.textContent = 'Guion del Podcast'
             modalContent.innerHTML = '<div class="w-full h-[80vh]"><iframe src="/Multimedia/guion_del_podcast.pdf" class="w-full h-full" frameborder="0" scrolling="auto"></iframe></div>'
