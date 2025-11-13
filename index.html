@@ -369,22 +369,26 @@
             modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="/Multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
           } else if (type === 'pdf') {
             modalTitle.textContent = 'Guion del Podcast'
-            const pdfPath = await resolveUrl(candidatesFor('guion_del_podcast.pdf'))
-            if (pdfPath) {
-              const u = new URL(pdfPath, window.location.href)
-              const preferViewer = /github\.com|dropboxusercontent|dropbox\.com/i.test(u.hostname)
-              const viewerSrc = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(pdfPath)}`
-              if (preferViewer) {
-                modalContent.innerHTML = `<div class="w-full h-[80vh]"><iframe src="${viewerSrc}" class="w-full h-full" frameborder="0" scrolling="auto"></iframe></div>`
-              } else {
-                modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${pdfPath}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfPath}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
-              }
+            const all = candidatesFor('guion_del_podcast.pdf')
+            const ext = all.find(p => {
+              const h = new URL(p, window.location.href).hostname
+              return /github\.com|dropboxusercontent|dropbox\.com/i.test(h)
+            })
+            if (ext) {
+              const viewerSrc = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(ext)}`
+              modalContent.innerHTML = `<div class="w-full h-[80vh]"><iframe src="${viewerSrc}" class="w-full h-full" frameborder="0" scrolling="auto"></iframe></div>`
             } else {
-              const pdfDataUrl = await resolveDataUrlFor('guion_del_podcast.pdf','application/pdf')
-              if (pdfDataUrl) {
-                modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${pdfDataUrl}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfDataUrl}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
+              const pdfPath = await resolveUrl(all)
+              if (pdfPath) {
+                modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${pdfPath}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfPath}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
               } else {
-                modalContent.innerHTML = '<div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="/Multimedia/guion_del_podcast.pdf" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div>'
+                const pdfDataUrl = await resolveDataUrlFor('guion_del_podcast.pdf','application/pdf')
+                if (pdfDataUrl) {
+                  modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${pdfDataUrl}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfDataUrl}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
+                } else {
+                  const drop = all.find(p => /dropboxusercontent|dropbox\.com/i.test(new URL(p, window.location.href).hostname)) || '/Multimedia/guion_del_podcast.pdf'
+                  modalContent.innerHTML = `<div class="w-full h-[80vh]"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${drop}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></div>`
+                }
               }
             }
           }
