@@ -141,7 +141,7 @@
                 <p class="mt-2 text-slate-600">Escucha el podcast producido para el curso.</p>
                 <div class="mt-4 flex items-center space-x-3">
                   <button data-modal="audio" class="btn-cta px-4 py-2 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-all duration-200 hover:scale-[1.03] focus:ring-2 focus:ring-primary-300">Reproducir</button>
-                  <a href="/Multimedia/podcast_producido.mp3" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
+                  <a href="/multimedia/podcast_producido.mp3" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
                 </div>
               </div>
             </div>
@@ -155,7 +155,7 @@
                 <p class="mt-2 text-slate-600">Visualiza el póster como recurso visual del curso.</p>
                 <div class="mt-4 flex items-center space-x-3">
                   <button data-modal="image" class="btn-cta px-4 py-2 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-all duration-200 hover:scale-[1.03] focus:ring-2 focus:ring-primary-300">Ver</button>
-                  <a href="/Multimedia/poster_cientifico.png" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
+                  <a href="/multimedia/poster_cientifico.png" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@
                 <p class="mt-2 text-slate-600">Lee el documento en formato PDF.</p>
                 <div class="mt-4 flex items-center space-x-3">
                   <button data-modal="pdf" class="btn-cta px-4 py-2 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-all duration-200 hover:scale-[1.03] focus:ring-2 focus:ring-primary-300">Leer</button>
-                  <a href="/Multimedia/guion_del_podcast.pdf" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
+                  <a href="/multimedia/guion_del_podcast.pdf" class="px-4 py-2 rounded-xl border border-slate-300 hover:border-primary-400 hover:text-primary-700 transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus:ring-2 focus:ring-primary-300">Descargar</a>
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@
           <div class="grid md:grid-cols-3 gap-8">
             <div class="bg-white rounded-2xl border border-slate-200 p-6">
               <div class="flex items-center space-x-5">
-                <img src="/Multimedia/Foto_Jeronimo.jpg" alt="Foto de Manuel Jeronimo Marzola Medina" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover object-center ring-2 ring-primary-200 shadow-md" />
+                <img src="/multimedia/Foto_Jeronimo.jpg" alt="Foto de Manuel Jeronimo Marzola Medina" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover object-center ring-2 ring-primary-200 shadow-md" />
                 <div>
                   <h4 class="font-semibold">Manuel Jeronimo Marzola Medina</h4>
                   <p class="text-slate-600">Estudiante • Ingeniería Informática</p>
@@ -309,22 +309,22 @@
           openOverlay()
           if (type === 'audio') {
             modalTitle.textContent = 'Podcast Educativo'
-            const audioPath = await resolveUrl(['/Multimedia/podcast_producido.mp3','/multimedia/podcast_producido.mp3'])
+            const audioPath = await resolveUrl(['/multimedia/podcast_producido.mp3'])
             if (audioPath) {
               modalContent.innerHTML = `<div class="p-6 space-y-4"><audio controls class="w-full" src="${audioPath}"><source src="${audioPath}" type="audio/mpeg"></audio><div class="text-sm text-slate-600">Si no se reproduce, <a href="${audioPath}" class="text-primary-600 underline" download>descarga el audio</a>.</div></div>`
             } else {
-              modalContent.innerHTML = '<div class="p-6 text-slate-700">No se pudo cargar el audio. <a href="/Multimedia/podcast_producido.mp3" class="text-primary-600 underline" download>Descargar</a>.</div>'
+              modalContent.innerHTML = '<div class="p-6 text-slate-700">No se pudo cargar el audio. <a href="/multimedia/podcast_producido.mp3" class="text-primary-600 underline" download>Descargar</a>.</div>'
             }
           } else if (type === 'image') {
             modalTitle.textContent = 'Póster Científico'
-            modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="/Multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
+            modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="/multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
           } else if (type === 'pdf') {
             modalTitle.textContent = 'Guion del Podcast'
-            const pdfPath = await resolveUrl(['/Multimedia/guion_del_podcast.pdf','/multimedia/guion_del_podcast.pdf'])
+            const pdfPath = await resolveUrl(['/multimedia/guion_del_podcast.pdf'])
             if (pdfPath) {
               modalContent.innerHTML = `<div class="w-full h-[80vh]"><iframe src="${pdfPath}" class="w-full h-full" frameborder="0" scrolling="auto"></iframe></div>`
             } else {
-              modalContent.innerHTML = '<div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="/Multimedia/guion_del_podcast.pdf" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div>'
+              modalContent.innerHTML = '<div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="/multimedia/guion_del_podcast.pdf" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div>'
             }
           }
         })
