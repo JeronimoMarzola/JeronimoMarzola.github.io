@@ -293,19 +293,39 @@
       overlay.addEventListener('click', (e) => { if (e.target === overlay) hideOverlay() })
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideOverlay() })
 
+      const resolveUrl = async (candidates) => {
+        for (const p of candidates) {
+          try {
+            const r = await fetch(p, { method: 'HEAD' })
+            if (r.ok) return p
+          } catch (e) {}
+        }
+        return null
+      }
+
       document.querySelectorAll('[data-modal]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           const type = btn.getAttribute('data-modal')
           openOverlay()
           if (type === 'audio') {
             modalTitle.textContent = 'Podcast Educativo'
-            modalContent.innerHTML = '<div class="p-6 space-y-4"><audio controls class="w-full" src="/Multimedia/podcast_producido.mp3"><source src="/Multimedia/podcast_producido.mp3" type="audio/mpeg"></audio><div class="text-sm text-slate-600">Si no se reproduce, <a href="/Multimedia/podcast_producido.mp3" class="text-primary-600 underline" download>descarga el audio</a>.</div></div>'
+            const audioPath = await resolveUrl(['/Multimedia/podcast_producido.mp3','/multimedia/podcast_producido.mp3'])
+            if (audioPath) {
+              modalContent.innerHTML = `<div class="p-6 space-y-4"><audio controls class="w-full" src="${audioPath}"><source src="${audioPath}" type="audio/mpeg"></audio><div class="text-sm text-slate-600">Si no se reproduce, <a href="${audioPath}" class="text-primary-600 underline" download>descarga el audio</a>.</div></div>`
+            } else {
+              modalContent.innerHTML = '<div class="p-6 text-slate-700">No se pudo cargar el audio. <a href="/Multimedia/podcast_producido.mp3" class="text-primary-600 underline" download>Descargar</a>.</div>'
+            }
           } else if (type === 'image') {
             modalTitle.textContent = 'Póster Científico'
             modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="/Multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
           } else if (type === 'pdf') {
             modalTitle.textContent = 'Guion del Podcast'
-            modalContent.innerHTML = '<div class="w-full h-[80vh]"><object data="/Multimedia/guion_del_podcast.pdf" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="/Multimedia/guion_del_podcast.pdf" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>'
+            const pdfPath = await resolveUrl(['/Multimedia/guion_del_podcast.pdf','/multimedia/guion_del_podcast.pdf'])
+            if (pdfPath) {
+              modalContent.innerHTML = `<div class="w-full h-[80vh]"><iframe src="${pdfPath}" class="w-full h-full" frameborder="0" scrolling="auto"></iframe></div>`
+            } else {
+              modalContent.innerHTML = '<div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="/Multimedia/guion_del_podcast.pdf" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div>'
+            }
           }
         })
       })
