@@ -366,26 +366,10 @@
             modalContent.innerHTML = '<div class="w-full h-[80vh] p-6 flex items-center justify-center overflow-auto"><img src="/Multimedia/poster_cientifico.png" class="max-w-full max-h-full object-contain rounded-xl" alt="Póster" /></div>'
         } else if (type === 'pdf') {
           modalTitle.textContent = 'Guion del Podcast'
-          const rawA = 'https://www.dropbox.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&e=1&st=r0tvnw9l&dl=0'
-          const rawB = 'https://www.dropbox.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&st=sewavysk&dl=0'
+          const raw = 'https://www.dropbox.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&st=sewavysk&dl=0'
           const clean = (u) => String(u || '').trim().replace(/^`+|`+$/g, '')
-          const toDirect = (r) => {
-            const u = new URL(clean(r), window.location.href)
-            u.hostname = 'dl.dropboxusercontent.com'
-            u.searchParams.delete('e')
-            u.searchParams.delete('st')
-            u.searchParams.set('dl', '1')
-            return u.toString()
-          }
-          const ddA = toDirect(rawA)
-          const ddB = toDirect(rawB)
-          const initial = ddA
-          modalContent.innerHTML = `<div class="w-full h-[80vh]"><div class="flex gap-3 p-4 border-b border-slate-200"><button id="btnPdfA" class="px-3 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700">Ver enlace A</button><button id="btnPdfB" class="px-3 py-2 rounded-lg bg-accent-600 text-white hover:bg-accent-700">Ver enlace B</button></div><iframe id="pdfFrame" src="${initial}" class="w-full h-[calc(80vh-64px)]" frameborder="0" scrolling="auto"></iframe></div>`
-          const btnA = document.getElementById('btnPdfA')
-          const btnB = document.getElementById('btnPdfB')
-          const frame = document.getElementById('pdfFrame')
-          if (btnA && frame) btnA.addEventListener('click', () => { frame.setAttribute('src', ddA) })
-          if (btnB && frame) btnB.addEventListener('click', () => { frame.setAttribute('src', ddB) })
+          const href = clean(raw)
+          modalContent.innerHTML = `<div class="p-6 space-y-4"><p class="text-slate-700">Para leer el guion, abre el enlace en una nueva pestaña.</p><a href="${href}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700">Leer en Dropbox</a></div>`
         }
         })
       })
