@@ -296,6 +296,16 @@
       const candidatesFor = (file) => {
         const o = window.location.origin
         const raw = 'https://raw.githubusercontent.com/JeronimoMarzola/JeronimoMarzola.github.io/main'
+        const external = {
+          'podcast_producido.mp3': [
+            'https://www.dropbox.com/scl/fi/2f5f5vewb4jdkp95t9i5d/podcast_producido.mp3?rlkey=pdv3hw69vevxn480b3xdr0f24&st=0k7j9hrn&dl=1',
+            'https://dl.dropboxusercontent.com/scl/fi/2f5f5vewb4jdkp95t9i5d/podcast_producido.mp3?rlkey=pdv3hw69vevxn480b3xdr0f24&dl=1'
+          ],
+          'guion_del_podcast.pdf': [
+            'https://www.dropbox.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&st=7uym6ilp&dl=1',
+            'https://dl.dropboxusercontent.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&dl=1'
+          ]
+        }
         return [
           `/Multimedia/${file}`,
           `/multimedia/${file}`,
@@ -304,7 +314,8 @@
           `./Multimedia/${file}`,
           `./multimedia/${file}`,
           `${raw}/Multimedia/${file}`,
-          `${raw}/public/multimedia/${file}`
+          `${raw}/public/multimedia/${file}`,
+          ...(external[file] || [])
         ]
       }
       const resolveUrl = async (candidates) => {
