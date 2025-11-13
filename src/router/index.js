@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Import pages
+import ModernLanding from '../pages/ModernLanding.vue'
+import LandingPage from '../pages/Landing/LandingPage.vue'
 import Home from '../pages/Home/Home.vue'
 import Team from '../pages/Team/Team.vue'
 import Evidence from '../pages/Evidence/Evidence.vue'
@@ -9,6 +11,14 @@ import Tutorial from '../pages/Tutorial/Tutorial.vue'
 const routes = [
   {
     path: '/',
+    name: 'ModernLanding',
+    component: ModernLanding,
+    meta: {
+      title: 'Habilidades Comunicativas - Universidad Católica del Norte'
+    }
+  },
+  {
+    path: '/blog',
     name: 'Home',
     component: Home,
     meta: {
