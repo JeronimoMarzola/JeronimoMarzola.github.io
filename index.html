@@ -370,13 +370,12 @@
           } else if (type === 'pdf') {
             modalTitle.textContent = 'Guion del Podcast'
             const all = candidatesFor('guion_del_podcast.pdf')
-            const ext = all.find(p => {
-              const h = new URL(p, window.location.href).hostname
-              return /github\.com|dropboxusercontent|dropbox\.com/i.test(h)
-            })
-            if (ext) {
-              const viewerSrc = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(ext)}`
-              modalContent.innerHTML = `<div class="w-full h-[80vh]"><iframe src="${viewerSrc}" class="w-full h-full" frameborder="0" scrolling="auto"></iframe></div>`
+            const dropDirect = all.find(p => /dropboxusercontent\.com/i.test(new URL(p, window.location.href).hostname))
+            const dropBox = all.find(p => /dropbox\.com/i.test(new URL(p, window.location.href).hostname))
+            if (dropDirect) {
+              modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${dropDirect}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${dropDirect}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
+            } else if (dropBox) {
+              modalContent.innerHTML = `<div class="w-full h-[80vh]"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${dropBox}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></div>`
             } else {
               const pdfPath = await resolveUrl(all)
               if (pdfPath) {
@@ -386,7 +385,7 @@
                 if (pdfDataUrl) {
                   modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${pdfDataUrl}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfDataUrl}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
                 } else {
-                  const drop = all.find(p => /dropboxusercontent|dropbox\.com/i.test(new URL(p, window.location.href).hostname)) || '/Multimedia/guion_del_podcast.pdf'
+                  const drop = dropBox || '/Multimedia/guion_del_podcast.pdf'
                   modalContent.innerHTML = `<div class="w-full h-[80vh]"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${drop}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></div>`
                 }
               }
