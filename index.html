@@ -303,7 +303,8 @@
           ],
           'guion_del_podcast.pdf': [
             'https://www.dropbox.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&st=7uym6ilp&dl=1',
-            'https://dl.dropboxusercontent.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&dl=1'
+            'https://dl.dropboxusercontent.com/scl/fi/gqqw8ke4et19ave0i3jcv/guion_del_podcast.pdf?rlkey=9vwdltztxlcak2ct6gw2n528h&dl=1',
+            'https://github.com/JeronimoMarzola/JeronimoMarzola.github.io/releases/latest/download/guion_del_podcast.pdf'
           ]
         }
         return [
@@ -369,7 +370,11 @@
             modalTitle.textContent = 'Guion del Podcast'
             const pdfPath = await resolveUrl(candidatesFor('guion_del_podcast.pdf'))
             if (pdfPath) {
-              modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${pdfPath}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfPath}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
+              const u = new URL(pdfPath, window.location.href)
+              const preferViewer = /github\.com|dropboxusercontent|dropbox\.com/i.test(u.hostname)
+              const viewerSrc = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(pdfPath)}`
+              const embedSrc = preferViewer ? viewerSrc : pdfPath
+              modalContent.innerHTML = `<div class="w-full h-[80vh]"><object data="${embedSrc}" type="application/pdf" class="w-full h-full"><div class="p-6 text-slate-700">No se puede visualizar el PDF aquí. <a href="${pdfPath}" class="text-primary-600 underline" target="_blank" rel="noopener">Abrir o descargar</a>.</div></object></div>`
             } else {
               const pdfDataUrl = await resolveDataUrlFor('guion_del_podcast.pdf','application/pdf')
               if (pdfDataUrl) {
